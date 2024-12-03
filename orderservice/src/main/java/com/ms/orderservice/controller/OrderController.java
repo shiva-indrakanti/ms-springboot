@@ -1,13 +1,22 @@
 package com.ms.orderservice.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.ms.orderservice.dto.OrderRequest;
+import com.ms.orderservice.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/orders")
 public class OrderController {
 
-    @GetMapping("/hello")
-    public String getString(){
-        return "Hello";
+    @Autowired
+    private OrderService orderService;
+
+    @PostMapping("/create")
+    public ResponseEntity<String> placeOrder(@RequestBody OrderRequest orderRequest){
+        String orderNumber = orderService.createOrder(orderRequest);
+        return new ResponseEntity<String>(orderNumber,HttpStatus.OK);
     }
 }
