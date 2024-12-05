@@ -18,16 +18,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String createOrder(OrderRequest orderRequest) {
         String orderNumber = generateOrderNumber();
-        Order order = Order.builder()
-                .skuCode(orderRequest.getSkuCode())
-                .orderNumber(orderNumber)
-                .price(orderRequest.getPrice())
-                .orderDate(Instant.now())
-                .orderStatus("CREATED")
-                .quantity(orderRequest.getQuantity())
-                .paymentMode(orderRequest.getPaymentMode())
-                .build();
-        order = orderRepo.save(order);
+        Order order = new Order();
+        order.setOrderNumber(orderNumber);
+        order.setOrderDate(Instant.now());
+        order.setOrderStatus("CREATED");
+        order.setSkuCode(orderRequest.getSkuCode());
+        order.setPrice(orderRequest.getPrice());
+        order.setPaymentMode(orderRequest.getPaymentMode());
+        order.setQuantity(orderRequest.getQuantity());
+
+        orderRepo.save(order);
         return order.getOrderNumber();
     }
 
