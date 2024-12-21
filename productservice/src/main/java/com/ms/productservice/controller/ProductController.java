@@ -26,4 +26,10 @@ public class ProductController {
         ProductResponse productResponse =  iProductService.retrieveProductBySkuCode(skuCode);
         return new ResponseEntity<ProductResponse>(productResponse,HttpStatus.OK);
     }
+
+    @PutMapping("/product/quantity/{skuCode}/reduce")
+    public ResponseEntity<Void> decrementQuantity(@PathVariable("skuCode") String skuCode,@RequestParam int quantity){
+        iProductService.reduceAvailableStock(skuCode,quantity);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
  }

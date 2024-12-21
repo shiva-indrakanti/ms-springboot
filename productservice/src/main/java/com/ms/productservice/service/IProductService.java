@@ -7,4 +7,6 @@ public interface IProductService {
     String addProduct(ProductRequest productRequest);
 
     ProductResponse retrieveProductBySkuCode(String skuCode);
+
+    void reduceAvailableStock(String skuCode, int quantity);
 }
