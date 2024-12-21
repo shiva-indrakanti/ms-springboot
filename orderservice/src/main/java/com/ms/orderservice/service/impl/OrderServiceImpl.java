@@ -20,7 +20,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public String createOrder(OrderRequest orderRequest) {
-        logger.info("createOrder method entry");
+        logger.info("Class - OrderServiceImpl : createOrder method entry");
         String orderNumber = generateOrderNumber();
         Order order = new Order();
         order.setOrderNumber(orderNumber);
@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
 
         orderRepo.save(order);
         logger.info("Created Order saved in db");
-        logger.info("createOrder method exit");
+        logger.info("Class - OrderServiceImpl : createOrder method exit");
         return order.getOrderNumber();
     }
 

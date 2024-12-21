@@ -20,7 +20,7 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public String addProduct(ProductRequest productRequest) {
-        logger.info("addProduct method entry");
+        logger.info("Class - ProductServiceImpl : addProduct method entry");
         if(productRepo.findBySkuCode(productRequest.getSkuCode()).isPresent()){
             throw new RuntimeException("Product "+ productRequest.getSkuCode()+" is Already exists ");
         }
@@ -31,13 +31,13 @@ public class ProductServiceImpl implements IProductService {
         product.setPrice(productRequest.getPrice());
         productRepo.save(product);
         logger.info("New product saved successfully");
-        logger.info("addProduct method exit");
+        logger.info("Class - ProductServiceImpl : addProduct method exit");
         return product.getSkuCode();
     }
 
     @Override
     public ProductResponse retrieveProductBySkuCode(String skuCode) {
-        logger.info("retrieveProductBySkuCode method entry");
+        logger.info("Class - ProductServiceImpl : retrieveProductBySkuCode method entry");
         Product product = productRepo.findBySkuCode(skuCode).orElseThrow(()->
                    new RuntimeException("Product Not Found for SKU_CODE : "+skuCode)
                 );
@@ -47,13 +47,13 @@ public class ProductServiceImpl implements IProductService {
         productResponse.setSkuCode(product.getSkuCode());
         productResponse.setPrice(product.getPrice());
         productResponse.setAvailableStock(product.getAvailableStock());
-        logger.info("retrieveProductBySkuCode method exit");
+        logger.info("Class - ProductServiceImpl : retrieveProductBySkuCode method exit");
         return productResponse;
     }
 
     @Override
     public void reduceAvailableStock(String skuCode, int quantity) {
-        logger.info("reduceAvailableStock method entry");
+        logger.info("Class - ProductServiceImpl : reduceAvailableStock method entry");
         Product product = productRepo.findBySkuCode(skuCode).orElseThrow(()->
                 new RuntimeException("Product Not Found for SKU_CODE : "+skuCode)
         );
@@ -64,6 +64,6 @@ public class ProductServiceImpl implements IProductService {
         product.setAvailableStock(product.getAvailableStock() - quantity);
         productRepo.save(product);
         logger.info("Stock updated");
-        logger.info("reduceAvailableStock method exit");
+        logger.info("Class - ProductServiceImpl : reduceAvailableStock method exit");
     }
 }
