@@ -1,0 +1,14 @@
+Order service ->
+
+base url : /api/orders
+1. create - /create
+http://localhost:8082/api/orders/create
+
+order create json :
+
+{
+  "skuCode": "ad002",
+  "price": 59.99,
+  "quantity": 2,
+  "paymentMode": "CREDIT_CARD"
+}

@@ -28,7 +28,6 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderStatus("CREATED");
         order.setSkuCode(orderRequest.getSkuCode());
         order.setPrice(orderRequest.getPrice());
-        order.setPaymentMode(orderRequest.getPaymentMode());
         order.setQuantity(orderRequest.getQuantity());
 
         orderRepo.save(order);

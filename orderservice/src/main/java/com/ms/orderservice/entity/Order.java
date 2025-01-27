@@ -17,13 +17,11 @@ public class Order {
     private String skuCode;
     private Double price;
     private int quantity;
-    private PaymentMode paymentMode;
 
     public Order() {
     }
 
-    public Order(PaymentMode paymentMode, int quantity, Double price, String skuCode, String orderStatus, Instant orderDate, String orderNumber) {
-        this.paymentMode = paymentMode;
+    public Order(int quantity, Double price, String skuCode, String orderStatus, Instant orderDate, String orderNumber) {
         this.quantity = quantity;
         this.price = price;
         this.skuCode = skuCode;
@@ -38,14 +36,6 @@ public class Order {
 
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
-    }
-
-    public PaymentMode getPaymentMode() {
-        return paymentMode;
-    }
-
-    public void setPaymentMode(PaymentMode paymentMode) {
-        this.paymentMode = paymentMode;
     }
 
     public int getQuantity() {

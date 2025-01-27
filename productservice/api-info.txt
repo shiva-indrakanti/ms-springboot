@@ -1,0 +1,21 @@
+Product service ->
+
+Base Url : /api/products
+1. create product - /create
+http://localhost:8081/api/products/create
+
+2. get product information - /product/{skuCode}
+http://localhost:8081/api/products/product/sm626
+
+3. reduce quantity - /product/quantity/{skuCode}/reduce
+http://localhost:8081/api/products/product/quantity/ad002/reduce?quantity=40
+
+
+create product json :
+
+{
+  "skuCode": "sm626",
+  "productName": "Samsung Adaptor",
+  "price": 35.99,
+  "availableStock": 50
+}
