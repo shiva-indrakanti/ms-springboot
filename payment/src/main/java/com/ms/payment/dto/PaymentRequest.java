@@ -2,7 +2,7 @@ package com.ms.payment.dto;
 
 public class PaymentRequest {
 
-    private Long orderId;
+    private String orderNumber;
     private Double amount;
     private String paymentMethod; // e.g., CREDIT_CARD, DEBIT_CARD, UPI
     private Long userId;
@@ -10,20 +10,20 @@ public class PaymentRequest {
     // Constructors
     public PaymentRequest() {}
 
-    public PaymentRequest(Long orderId, Double amount, String paymentMethod, Long userId) {
-        this.orderId = orderId;
+    public PaymentRequest(String orderNumber, Double amount, String paymentMethod, Long userId) {
+        this.orderNumber = orderNumber;
         this.amount = amount;
         this.paymentMethod = paymentMethod;
         this.userId = userId;
     }
 
     // Getters and Setters
-    public Long getOrderId() {
-        return orderId;
+    public String getOrderNumber() {
+        return orderNumber;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public Double getAmount() {
@@ -53,7 +53,7 @@ public class PaymentRequest {
     @Override
     public String toString() {
         return "PaymentRequest{" +
-                "orderId=" + orderId +
+                "orderId=" + orderNumber +
                 ", amount=" + amount +
                 ", paymentMethod='" + paymentMethod + '\'' +
                 ", userId=" + userId +

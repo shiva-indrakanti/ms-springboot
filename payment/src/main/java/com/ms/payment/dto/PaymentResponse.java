@@ -1,51 +1,44 @@
 package com.ms.payment.dto;
 
+import com.ms.payment.constants.PaymentStatus;
+
 import java.time.LocalDateTime;
 
 
 public class PaymentResponse {
-    private Long paymentId;
-    private Long orderId;
-    private Double amount;
+    private String orderNumber;
+    private String transactionId;
+    private Double amountPaid;
     private String paymentMethod;
-    private String status; // e.g., INITIATED, COMPLETED, FAILED
+    private PaymentStatus status; // e.g., INITIATED, COMPLETED, FAILED
     private LocalDateTime timestamp;
 
     // Constructors
     public PaymentResponse() {}
 
-    public PaymentResponse(Long paymentId, Long orderId, Double amount, String paymentMethod, String status, LocalDateTime timestamp) {
-        this.paymentId = paymentId;
-        this.orderId = orderId;
-        this.amount = amount;
-        this.paymentMethod = paymentMethod;
-        this.status = status;
-        this.timestamp = timestamp;
-    }
-
     // Getters and Setters
-    public Long getPaymentId() {
-        return paymentId;
+    public String getTransactionId() {
+        return transactionId;
     }
 
-    public void setPaymentId(Long paymentId) {
-        this.paymentId = paymentId;
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public String getOrderNumber() {
+        return orderNumber;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
-    public Double getAmount() {
-        return amount;
+    public Double getAmountPaid() {
+        return amountPaid;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setAmountPaid(Double amountPaid) {
+        this.amountPaid = amountPaid;
     }
 
     public String getPaymentMethod() {
@@ -56,11 +49,11 @@ public class PaymentResponse {
         this.paymentMethod = paymentMethod;
     }
 
-    public String getStatus() {
+    public PaymentStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(PaymentStatus status) {
         this.status = status;
     }
 
@@ -75,9 +68,9 @@ public class PaymentResponse {
     @Override
     public String toString() {
         return "PaymentResponse{" +
-                "paymentId=" + paymentId +
-                ", orderId=" + orderId +
-                ", amount=" + amount +
+                "paymentId=" + transactionId +
+                ", orderId=" + orderNumber +
+                ", amount=" + amountPaid +
                 ", paymentMethod='" + paymentMethod + '\'' +
                 ", status='" + status + '\'' +
                 ", timestamp=" + timestamp +

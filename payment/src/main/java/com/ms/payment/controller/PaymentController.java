@@ -23,16 +23,9 @@ public class PaymentController {
         return new ResponseEntity<>(payId, HttpStatus.CREATED);
     }
 
-    @GetMapping("/payment-info/{orderId}")
-    public ResponseEntity<PaymentResponse> getPaymentDetails(@RequestParam(name = "orderId") String orderId){
-        Payment paymentData = iPaymentService.retrievePaymentInfo(orderId);
-        PaymentResponse paymentResponse = new PaymentResponse();
-        paymentResponse.setPaymentId(paymentData.getPaymentId());
-        paymentResponse.setOrderId(paymentData.getOrderId());
-        paymentResponse.setAmount(paymentData.getAmount());
-        paymentResponse.setPaymentMethod(paymentData.getPaymentMethod());
-        paymentResponse.setStatus(paymentData.getStatus());
-        paymentResponse.setTimestamp(paymentData.getTimestamp());
-        return new ResponseEntity<>(paymentResponse, HttpStatus.OK);
+    @GetMapping("/payment-info/{orderNo}")
+    public ResponseEntity<PaymentResponse> getPaymentDetails(@PathVariable(name = "orderNo") String orderNo){
+        PaymentResponse paymentData = iPaymentService.retrievePaymentInfo(orderNo);
+        return new ResponseEntity<>(paymentData, HttpStatus.OK);
     }
 }

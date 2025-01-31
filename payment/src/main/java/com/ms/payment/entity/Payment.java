@@ -1,5 +1,6 @@
 package com.ms.payment.entity;
 
+import com.ms.payment.constants.PaymentStatus;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -15,7 +16,7 @@ public class Payment {
     private String transactionId;
 
     @Column(nullable = false)
-    private Long orderId;
+    private String orderNumber;
 
     @Column(nullable = false)
     private Long userId;
@@ -27,25 +28,13 @@ public class Payment {
     private String paymentMethod;
 
     @Column(nullable = false)
-    private String status;
+    private PaymentStatus status;
 
     @Column(nullable = false)
     private LocalDateTime timestamp;
 
     // Constructors
     public Payment() {}
-
-    public Payment(Long paymentId, String transactionId, Long orderId, Long userId, Double amount,
-                   String paymentMethod, String status, LocalDateTime timestamp) {
-        this.paymentId = paymentId;
-        this.transactionId = transactionId;
-        this.orderId = orderId;
-        this.userId = userId;
-        this.amount = amount;
-        this.paymentMethod = paymentMethod;
-        this.status = status;
-        this.timestamp = timestamp;
-    }
 
     // Getters and Setters
     public Long getPaymentId() {
@@ -64,12 +53,12 @@ public class Payment {
         this.transactionId = transactionId;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public String getOrderNumber() {
+        return orderNumber;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public Long getUserId() {
@@ -96,11 +85,11 @@ public class Payment {
         this.paymentMethod = paymentMethod;
     }
 
-    public String getStatus() {
+    public PaymentStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(PaymentStatus status) {
         this.status = status;
     }
 
@@ -117,7 +106,7 @@ public class Payment {
         return "Payment{" +
                 "paymentId=" + paymentId +
                 ", transactionId='" + transactionId + '\'' +
-                ", orderId=" + orderId +
+                ", orderId=" + orderNumber +
                 ", userId=" + userId +
                 ", amount=" + amount +
                 ", paymentMethod='" + paymentMethod + '\'' +
