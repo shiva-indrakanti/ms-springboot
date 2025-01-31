@@ -19,7 +19,7 @@ public class Payment {
     private String orderNumber;
 
     @Column(nullable = false)
-    private Long userId;
+    private String userName;
 
     @Column(nullable = false)
     private Double amount;
@@ -61,12 +61,12 @@ public class Payment {
         this.orderNumber = orderNumber;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Double getAmount() {
@@ -107,7 +107,7 @@ public class Payment {
                 "paymentId=" + paymentId +
                 ", transactionId='" + transactionId + '\'' +
                 ", orderId=" + orderNumber +
-                ", userId=" + userId +
+                ", userName=" + userName +
                 ", amount=" + amount +
                 ", paymentMethod='" + paymentMethod + '\'' +
                 ", status='" + status + '\'' +

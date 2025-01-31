@@ -5,16 +5,16 @@ public class PaymentRequest {
     private String orderNumber;
     private Double amount;
     private String paymentMethod; // e.g., CREDIT_CARD, DEBIT_CARD, UPI
-    private Long userId;
+    private String userName;
 
     // Constructors
     public PaymentRequest() {}
 
-    public PaymentRequest(String orderNumber, Double amount, String paymentMethod, Long userId) {
+    public PaymentRequest(String orderNumber, Double amount, String paymentMethod, String userName) {
         this.orderNumber = orderNumber;
         this.amount = amount;
         this.paymentMethod = paymentMethod;
-        this.userId = userId;
+        this.userName = userName;
     }
 
     // Getters and Setters
@@ -42,12 +42,12 @@ public class PaymentRequest {
         this.paymentMethod = paymentMethod;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class PaymentRequest {
                 "orderId=" + orderNumber +
                 ", amount=" + amount +
                 ", paymentMethod='" + paymentMethod + '\'' +
-                ", userId=" + userId +
+                ", userName=" + userName +
                 '}';
     }
 }

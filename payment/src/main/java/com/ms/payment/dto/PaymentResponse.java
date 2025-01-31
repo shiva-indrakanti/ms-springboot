@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public class PaymentResponse {
     private String orderNumber;
     private String transactionId;
+    private String userName;
     private Double amountPaid;
     private String paymentMethod;
     private PaymentStatus status; // e.g., INITIATED, COMPLETED, FAILED
@@ -65,11 +66,19 @@ public class PaymentResponse {
         this.timestamp = timestamp;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     public String toString() {
         return "PaymentResponse{" +
                 "paymentId=" + transactionId +
-                ", orderId=" + orderNumber +
+                ", orderNumber=" + orderNumber +
                 ", amount=" + amountPaid +
                 ", paymentMethod='" + paymentMethod + '\'' +
                 ", status='" + status + '\'' +

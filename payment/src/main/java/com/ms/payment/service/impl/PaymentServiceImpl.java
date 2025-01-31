@@ -8,6 +8,7 @@ import com.ms.payment.entity.Payment;
 import com.ms.payment.exception.InvalidPaymentRequestException;
 import com.ms.payment.exception.PaymentNotFoundException;
 import com.ms.payment.exception.PaymentProcessingException;
+import com.ms.payment.mapper.PaymentMapper;
 import com.ms.payment.service.IPaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,11 @@ public class PaymentServiceImpl implements IPaymentService {
     @Autowired
     private PaymentRepo paymentRepo;
 
+
+    /**
+     * Helps in processing the payment
+     * @return PaymentResponse object
+     */
     @Override
     public String processPayment(PaymentRequest paymentRequest) {
         final String METHOD_NAME = "processPayment";
@@ -36,15 +42,10 @@ public class PaymentServiceImpl implements IPaymentService {
             // Validate the paymentRequest object
             validatePaymentRequest(paymentRequest);
 
-            Payment payment = new Payment();
+            Payment payment = PaymentMapper.mapPaymentRequestToPaymentEntity(paymentRequest);
             payment.setTransactionId(generateTransactionID());
-            payment.setOrderNumber(paymentRequest.getOrderNumber());
-            payment.setUserId(paymentRequest.getUserId());
-            payment.setAmount(paymentRequest.getAmount());
-            payment.setPaymentMethod(paymentRequest.getPaymentMethod());
-            payment.setTimestamp(LocalDateTime.now());
-            payment.setStatus(PaymentStatus.SUCCESS);
             paymentRepo.save(payment);
+
             logger.info("{} , {}, Payment completed successfully.", CLASS_NAME, METHOD_NAME);
             logger.info("{} , {}, Method execution completed.", CLASS_NAME, METHOD_NAME);
             return payment.getTransactionId();
@@ -57,6 +58,11 @@ public class PaymentServiceImpl implements IPaymentService {
         }
     }
 
+
+    /**
+     * Helps in retrieving payment information of order number
+     * @return PaymentResponse object
+     */
     @Override
     public PaymentResponse retrievePaymentInfo(String orderNo) {
 
@@ -68,15 +74,7 @@ public class PaymentServiceImpl implements IPaymentService {
         //retrieving payment record for order no, if not throwing payment related exception..
         Payment payment = paymentRepo.findByOrderNumber(orderNo).orElseThrow(
                 () -> new PaymentNotFoundException("Payment not found for order: " + orderNo));
-
-        PaymentResponse paymentResponse = new PaymentResponse();
-        paymentResponse.setOrderNumber(payment.getOrderNumber());
-        paymentResponse.setTransactionId(payment.getTransactionId());
-        paymentResponse.setAmountPaid(payment.getAmount());
-        paymentResponse.setStatus(payment.getStatus());
-        paymentResponse.setPaymentMethod(payment.getPaymentMethod());
-        paymentResponse.setTimestamp(payment.getTimestamp());
-        return paymentResponse;
+        return PaymentMapper.mapPaymentEntityToPaymentResponse(payment);
     }
 
     private String generateTransactionID() {
@@ -91,7 +89,7 @@ public class PaymentServiceImpl implements IPaymentService {
         if (paymentRequest.getOrderNumber() == null) {
             throw new InvalidPaymentRequestException("Order ID is required");
         }
-        if (paymentRequest.getUserId() == null) {
+        if (paymentRequest.getUserName() == null) {
             throw new InvalidPaymentRequestException("User ID is required");
         }
         if (paymentRequest.getAmount() == null || paymentRequest.getAmount() <= 0) {
