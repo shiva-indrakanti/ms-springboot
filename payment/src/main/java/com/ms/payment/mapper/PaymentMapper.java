@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 public class PaymentMapper {
     public static Payment mapPaymentRequestToPaymentEntity(PaymentRequest paymentRequest) {
         Payment paymentObj = new Payment();
-        paymentObj.setOrderNumber(paymentRequest.getOrderNumber());
         paymentObj.setUserName(paymentRequest.getUserName());
         paymentObj.setAmount(paymentRequest.getAmount());
         paymentObj.setPaymentMethod(paymentRequest.getPaymentMethod());
@@ -21,7 +20,6 @@ public class PaymentMapper {
 
     public static PaymentResponse   mapPaymentEntityToPaymentResponse(Payment payment){
         PaymentResponse paymentResponse = new PaymentResponse();
-        paymentResponse.setOrderNumber(payment.getOrderNumber());
         paymentResponse.setTransactionId(payment.getTransactionId());
         paymentResponse.setUserName(payment.getUserName());
         paymentResponse.setAmountPaid(payment.getAmount());

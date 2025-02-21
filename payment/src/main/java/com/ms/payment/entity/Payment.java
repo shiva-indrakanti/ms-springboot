@@ -16,9 +16,6 @@ public class Payment {
     private String transactionId;
 
     @Column(nullable = false)
-    private String orderNumber;
-
-    @Column(nullable = false)
     private String userName;
 
     @Column(nullable = false)
@@ -51,14 +48,6 @@ public class Payment {
 
     public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
-    }
-
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
     }
 
     public String getUserName() {
@@ -106,7 +95,6 @@ public class Payment {
         return "Payment{" +
                 "paymentId=" + paymentId +
                 ", transactionId='" + transactionId + '\'' +
-                ", orderId=" + orderNumber +
                 ", userName=" + userName +
                 ", amount=" + amount +
                 ", paymentMethod='" + paymentMethod + '\'' +

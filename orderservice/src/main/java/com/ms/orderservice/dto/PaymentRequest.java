@@ -1,4 +1,4 @@
-package com.ms.payment.dto;
+package com.ms.orderservice.dto;
 
 public class PaymentRequest {
     private Double amount;

@@ -1,7 +1,6 @@
 package com.ms.payment.service.impl;
 
 import com.ms.payment.common.StringUtil;
-import com.ms.payment.constants.PaymentStatus;
 import com.ms.payment.dto.PaymentRequest;
 import com.ms.payment.dto.PaymentResponse;
 import com.ms.payment.entity.Payment;
@@ -12,8 +11,6 @@ import com.ms.payment.mapper.PaymentMapper;
 import com.ms.payment.service.IPaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.time.LocalDateTime;
-import java.util.Optional;
 
 import com.ms.payment.repo.PaymentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,9 +82,6 @@ public class PaymentServiceImpl implements IPaymentService {
     private void validatePaymentRequest(PaymentRequest paymentRequest) {
         if (paymentRequest == null) {
             throw new InvalidPaymentRequestException("PaymentRequest is null");
-        }
-        if (paymentRequest.getOrderNumber() == null) {
-            throw new InvalidPaymentRequestException("Order ID is required");
         }
         if (paymentRequest.getUserName() == null) {
             throw new InvalidPaymentRequestException("User ID is required");
