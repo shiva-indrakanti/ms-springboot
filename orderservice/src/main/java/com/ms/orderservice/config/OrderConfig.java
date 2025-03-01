@@ -1,4 +1,4 @@
-package com.ms.payment.config;
+package com.ms.orderservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

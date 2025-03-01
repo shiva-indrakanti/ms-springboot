@@ -61,16 +61,16 @@ public class PaymentServiceImpl implements IPaymentService {
      * @return PaymentResponse object
      */
     @Override
-    public PaymentResponse retrievePaymentInfo(String orderNo) {
+    public PaymentResponse retrievePaymentInfo(String transactionId) {
 
         //if order no is null or empty ,returning null pointer exception..
-        if(!StringUtil.isEmptyOrNotNull(orderNo)){
+        if(!StringUtil.isEmptyOrNotNull(transactionId)){
             throw new NullPointerException("Order Id passed is null or empty. Please try again later.");
         }
 
         //retrieving payment record for order no, if not throwing payment related exception..
-        Payment payment = paymentRepo.findByOrderNumber(orderNo).orElseThrow(
-                () -> new PaymentNotFoundException("Payment not found for order: " + orderNo));
+        Payment payment = paymentRepo.findByTransactionId(transactionId).orElseThrow(
+                () -> new PaymentNotFoundException("Payment not found for order: " + transactionId));
         return PaymentMapper.mapPaymentEntityToPaymentResponse(payment);
     }
 

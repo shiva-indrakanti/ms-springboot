@@ -10,6 +10,7 @@ import com.ms.orderservice.exception.StockCheckException;
 import com.ms.orderservice.repo.OrderRepo;
 import com.ms.orderservice.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
@@ -18,6 +19,8 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -73,9 +76,35 @@ public class OrderServiceImpl implements OrderService {
 
         orderRepo.save(order);
         //implement logic to reduce stock of used quantity from product service..
+        boolean reduced = decreaseUtilisedQuantity(orderRequest.getSkuCode(),orderRequest.getQuantity());
+        if(!reduced){
+            throw new StockCheckException("Failed to reduce stock for SKU: " + orderRequest.getSkuCode());
+        }
+
         logger.info("Created Order saved in db");
         logger.info("Class - OrderServiceImpl : createOrder method exit");
         return order.getOrderNumber();
+    }
+
+    private boolean decreaseUtilisedQuantity(String skuCode,int quantity) {
+        String url = "http://localhost:8081/api/products/product/quantity/{skuCode}/reduce?quantity={quantity}";
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("skuCode", skuCode);
+        params.put("quantity", quantity);
+
+        try {
+            ResponseEntity<Void> response = restTemplate.exchange(url, HttpMethod.PUT, null, Void.class, params);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+                logger.info("Stock reduced successfully for SKU: {}", skuCode);
+                return true;
+            } else {
+                throw new StockCheckException("Failed to reduce stock for SKU: " + skuCode);
+            }
+        } catch (Exception e) {
+            throw new StockCheckException("Error occurred while reducing stock for SKU: " + skuCode, e);
+        }
     }
 
     private String initiatePayment(PaymentRequest paymentRequest) {
@@ -99,7 +128,7 @@ public class OrderServiceImpl implements OrderService {
     private boolean checkStock(String skuCode, int quantity) {
         logger.info("Checking stock starting in Order service CheckStock method");
         try {
-            String url = "http://localhost:8081/product/"+skuCode;
+            String url = "http://localhost:8081/api/products//product/"+skuCode;
             ResponseEntity<ProductResponse> response = restTemplate.getForEntity(url, ProductResponse.class);
             if (response.getBody() != null) {
                 int availableStock = response.getBody().getAvailableStock();
@@ -111,7 +140,6 @@ public class OrderServiceImpl implements OrderService {
             throw new StockCheckException("Failed to check stock for SKU: " +skuCode,e);
         }
     }
-
 
     private String generateOrderNumber() {
         return "OD"+(1000000L + (long) (Math.random() * 9000000L));

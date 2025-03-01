@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 
 
 public class PaymentResponse {
-    private String orderNumber;
     private String transactionId;
     private String userName;
     private Double amountPaid;
@@ -24,14 +23,6 @@ public class PaymentResponse {
 
     public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
-    }
-
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
     }
 
     public Double getAmountPaid() {
@@ -78,7 +69,6 @@ public class PaymentResponse {
     public String toString() {
         return "PaymentResponse{" +
                 "paymentId=" + transactionId +
-                ", orderNumber=" + orderNumber +
                 ", amount=" + amountPaid +
                 ", paymentMethod='" + paymentMethod + '\'' +
                 ", status='" + status + '\'' +
