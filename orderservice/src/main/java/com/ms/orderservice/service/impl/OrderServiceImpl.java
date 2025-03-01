@@ -128,7 +128,7 @@ public class OrderServiceImpl implements OrderService {
     private boolean checkStock(String skuCode, int quantity) {
         logger.info("Checking stock starting in Order service CheckStock method");
         try {
-            String url = "http://localhost:8081/api/products//product/"+skuCode;
+            String url = "http://localhost:8081/api/products/product/"+skuCode;
             ResponseEntity<ProductResponse> response = restTemplate.getForEntity(url, ProductResponse.class);
             if (response.getBody() != null) {
                 int availableStock = response.getBody().getAvailableStock();
